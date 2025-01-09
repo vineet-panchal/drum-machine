@@ -1,7 +1,9 @@
+// Import necessary modules and components
 import "./App.css";
 import { AudioClip } from "./types";
 import Drum from "./Drum";
 
+// Define the audio clips with their respective key triggers, URLs, and descriptions
 const audioClips: AudioClip[] = [
   {
     keyTrigger: "Q",
@@ -50,7 +52,9 @@ const audioClips: AudioClip[] = [
   },
 ];
 
+// Main App component
 function App() {
+  // Function to play audio when a key is pressed
   const playAudio = (e: React.KeyboardEvent<HTMLDivElement>) => {
     const clip = audioClips.find(
       (clip) => clip.keyTrigger === e.key.toUpperCase()
@@ -60,13 +64,16 @@ function App() {
       .play()
       .catch(console.error);
 
+    // Set focus to the corresponding drum button and update the display
     document.getElementById("drum-" + clip.keyTrigger)?.focus();
     document.getElementById("display")!.innerText = clip.description;
   };
+
   return (
     <div className="ctr" onKeyDown={playAudio}>
-      <h1>FreeCodeCamp Drum Machine</h1>
+      <h1 className="main-title">FreeCodeCamp Drum Machine</h1>
       <div className="drum-kit-ctr">
+        {/* Map every single drum to the drum component */}
         {audioClips.map((clip) => (
           <Drum audioClip={clip} key={clip.keyTrigger} />
         ))}
